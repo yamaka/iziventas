@@ -1,0 +1,65 @@
+name: iziventas
+description: Aplicación de gestión de inventario y ventas
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: '>=3.10.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # Gestión de estado
+  flutter_bloc: ^8.1.3
+  bloc: ^8.1.2
+  
+  # Networking
+  dio: ^5.3.2
+  retrofit: ^4.0.1
+  
+  # Almacenamiento local
+  shared_preferences: ^2.2.0
+  flutter_secure_storage: ^9.0.0
+  
+  # Autenticación
+  jwt_decoder: ^2.0.1
+  
+  # UI
+  google_fonts: ^6.1.0
+  fl_chart: ^0.65.0
+  
+  # Utilidades
+  intl: ^0.19.0
+  equatable: ^2.0.5
+  uuid: ^4.0.0
+  
+  # Formularios
+  formz: ^0.6.0
+
+  json_annotation: ^4.8.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.3
+  build_runner: ^2.4.6
+  json_serializable: ^6.6.2
+  retrofit_generator: ^7.0.8
+
+flutter:
+  uses-material-design: true
+  
+  assets:
+    - assets/images/
+    - assets/icons/
+
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
+        - asset: assets/fonts/Roboto-Bold.ttf
+          weight: 700

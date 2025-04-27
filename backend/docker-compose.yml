@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: inventory-sales-db
+    environment:
+      MYSQL_ROOT_PASSWORD: contraseña_root
+      MYSQL_DATABASE: inventory_sales_db
+      MYSQL_USER: usuario_db
+      MYSQL_PASSWORD: contraseña_segura
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - inventory-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+    restart: unless-stopped
+
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: inventory-sales-api
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=db
+      - DB_USER=usuario_db
+      - DB_PASS=contraseña_segura
+      - DB_NAME=inventory_sales_db
+      - DB_ROOT_PASSWORD=contraseña_root
+      - JWT_SECRET=izi_ventas_secret
+      - PORT=3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - inventory-network
+    volumes:
+      - .:/app
+      - /app/node_modules
+    restart: unless-stopped
+
+volumes:
+  mysql-data:
+
+networks:
+  inventory-network:
+    driver: bridge

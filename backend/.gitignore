@@ -1,0 +1,52 @@
+# Dependencias
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Archivos de entorno
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Archivos de compilación y salida
+/dist
+/build
+/.next
+/out
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Directorio de caché
+.npm
+.eslintcache
+.node_repl_history
+
+# Archivos de IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Archivos de prueba
+coverage/
+.nyc_output/
+
+# Archivos temporales de MySQL
+*.pid
+*.seed
+*.pid.lock
+
+# Archivos específicos de Docker
+.dockerignore
+docker-compose.override.yml
+
+# Archivos de seguridad de Sequelize
+config/config.json
