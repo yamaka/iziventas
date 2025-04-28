@@ -3,7 +3,7 @@ version: '3.8'
 services:
   db:
     image: mysql:8.0
-    container_name: inventory-sales-db
+    container_name: news-db
     environment:
       MYSQL_ROOT_PASSWORD: contraseña_root
       MYSQL_DATABASE: inventory_sales_db
@@ -15,7 +15,7 @@ services:
       - mysql-data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
-      - inventory-network
+      - news-network
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
       interval: 10s
@@ -28,7 +28,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
-    container_name: inventory-sales-api
+    container_name: news-api
     environment:
       - NODE_ENV=development
       - DB_HOST=db
@@ -37,14 +37,14 @@ services:
       - DB_NAME=inventory_sales_db
       - DB_ROOT_PASSWORD=contraseña_root
       - JWT_SECRET=izi_ventas_secret
-      - PORT=3000
+      - PORT=8082
     ports:
-      - "3000:3000"
+      - "8082:8082" # Change the exposed port to 8082
     depends_on:
       db:
         condition: service_healthy
     networks:
-      - inventory-network
+      - news-network
     volumes:
       - .:/app
       - /app/node_modules
@@ -54,5 +54,5 @@ volumes:
   mysql-data:
 
 networks:
-  inventory-network:
+  news-network:
     driver: bridge

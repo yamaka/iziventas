@@ -1,0 +1,19 @@
+.app-title {
+    margin-left: 16px;
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+  
+  .toolbar-spacer {
+    flex: 1 1 auto;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+    
+    span {
+      margin-right: 10px;
+      font-size: 0.9rem;
+    }
+  }

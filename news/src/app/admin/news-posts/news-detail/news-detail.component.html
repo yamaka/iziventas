@@ -1,0 +1,48 @@
+<div class="news-detail-container">
+  <div class="detail-header">
+    <button mat-icon-button (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1>News Post Details</h1>
+  </div>
+
+  <!-- Loading spinner -->
+  <div class="spinner-container" *ngIf="isLoading">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+
+  <ng-container *ngIf="!isLoading && newsPost">
+    <mat-card class="news-card">
+      <mat-card-header>
+        <mat-card-title>{{ newsPost.title }}</mat-card-title>
+        <mat-card-subtitle>
+          <div class="post-meta">
+            <span class="category-chip">{{ category?.name || 'Uncategorized' }}</span>
+            <span class="date">{{ newsPost.date | date:'medium' }}</span>
+            <span class="creator">By: {{ newsPost.creator }}</span>
+          </div>
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <img *ngIf="newsPost.imageUrl" mat-card-image [src]="newsPost.imageUrl" alt="{{ newsPost.title }}">
+
+      <mat-card-content>
+        <div class="post-content">
+          {{ newsPost.content }}
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="onEdit()">
+          <mat-icon>edit</mat-icon> EDIT
+        </button>
+        <button mat-button color="warn" (click)="onDelete()">
+          <mat-icon>delete</mat-icon> DELETE
+        </button>
+        <button mat-button (click)="goBack()">
+          <mat-icon>list</mat-icon> BACK TO LIST
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-container>
+</div>

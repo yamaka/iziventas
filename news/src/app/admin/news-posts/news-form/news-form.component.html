@@ -1,0 +1,67 @@
+<div class="news-form-container">
+  <div class="form-header">
+    <h1>{{ isEditMode ? 'Edit' : 'Create' }} News Post</h1>
+  </div>
+
+  <mat-card>
+    <mat-card-content>
+      <!-- Loading spinner -->
+      <div class="spinner-container" *ngIf="isLoading">
+        <mat-spinner diameter="40"></mat-spinner>
+      </div>
+
+      <form [formGroup]="newsForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+        <!-- Title Field -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title" placeholder="Enter news title">
+          <mat-error *ngIf="newsForm.get('title')?.hasError('required') && submitAttempted">
+            Title is required
+          </mat-error>
+          <mat-error *ngIf="newsForm.get('title')?.hasError('minlength') && submitAttempted">
+            Title must be at least 5 characters
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Category Field -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="categoryId">
+            <mat-option *ngFor="let category of categories" [value]="category.id">
+              {{ category.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="newsForm.get('categoryId')?.hasError('required') && submitAttempted">
+            Category is required
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Image URL Field -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Image URL (optional)</mat-label>
+          <input matInput formControlName="imageUrl" placeholder="Enter image URL">
+        </mat-form-field>
+
+        <!-- Content Field -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Content</mat-label>
+          <textarea matInput formControlName="content" rows="10" placeholder="Enter news content"></textarea>
+          <mat-error *ngIf="newsForm.get('content')?.hasError('required') && submitAttempted">
+            Content is required
+          </mat-error>
+          <mat-error *ngIf="newsForm.get('content')?.hasError('minlength') && submitAttempted">
+            Content must be at least 20 characters
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+          <button mat-button type="button" (click)="cancel()">Cancel</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="isLoading">
+            {{ isEditMode ? 'Update' : 'Create' }} Post
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

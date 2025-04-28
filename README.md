@@ -1,141 +1,169 @@
+# News Management Application
 
-# Configuracion y Ejecucion del Backend
-==========================
+This project consists of a **backend** built with Node.js and a **frontend** built with Angular. The backend is containerized using Docker, and the frontend can be run locally.
 
-Esta guia te ayudar  a configurar y ejecutar el backend para la aplicaci n de gesti o de inventario y ventas.
+---
 
-## Requisitos previos
----------------
+## Prerequisites
 
-* Docker instalado en tu m quina
-* Docker Compose instalado en tu m quina
-* Cliente de MySQL instalado en tu m quina (opcional)
+Before starting, ensure you have the following installed on your machine:
 
-## Paso 1: Crear una base de datos de MySQL
----------------------------------
+- **Docker**: [Install Docker](https://docs.docker.com/get-docker/)
+- **Docker Compose**: [Install Docker Compose](https://docs.docker.com/compose/install/)
+- **Node.js**: [Install Node.js](https://nodejs.org/) (for running the Angular frontend)
+- **Angular CLI**: Install globally using:
+  ```bash
+  npm install -g @angular/cli
+  ```
 
-Crea una base de datos de MySQL utilizando el script `backend/init.sql`. Puedes hacer esto ejecutando el siguiente comando:
+---
 
-## Paso 2: Construir la Imagen de Docker
-------------------------------
+## Backend Setup (Node.js with Docker)
 
-Construye la imagen de Docker para el backend usando el archivo `backend/Dockerfile`. Ejecuta el siguiente comando:
+### Step 1: Build the Docker Image
+Navigate to the backend directory and build the Docker image:
 
 ```bash
-docker build -t inventory-sales-api backend
+cd backend
+docker-compose build
 ```
 
-## Step 3: Create a Docker Compose File
---------------------------------------
-
-Crea un archivo de Docker Compose llamado `docker-compose.yml` en el directorio raiz de tu proyecto. Copia el contenido de `backend/docker-compose.yml` en este archivo.
-
-## Paso 4: Iniciar los Contenedores
------------------------------
-
-Inicia los contenedores utilizando Docker Compose:
+### Step 2: Start the Containers
+Start the backend and database containers using Docker Compose:
 
 ```bash
 docker-compose up -d
 ```
 
-Esto iniciar  la base de datos de MySQL y la API de backend en modo desacoplado.
+This will:
+- Start the **MySQL database** on port `3306`.
+- Start the **backend API** on port `8082`.
 
-## Paso 5: Verificar la Configuración
--------------------------
+### Step 3: Verify the Backend
+Check if the backend is running by visiting: [http://localhost:8082](http://localhost:8082).
 
-Verifica que la configuración esté funcionando revisando los registros:
+You should see a welcome message like:
+```json
+{
+  "message": "Welcome to the News Management API",
+  "version": "1.0.0"
+}
+```
+
+### Step 4: Seed the Database (Optional)
+If you need to populate the database with initial data (e.g., categories), run the seeder:
+
+```bash
+docker exec -it news-api node src/seeders/categorySeeder.js
+```
+
+---
+
+## Frontend Setup (Angular)
+
+### Step 1: Install Dependencies
+Navigate to the frontend directory and install the required dependencies:
+
+```bash
+cd news
+npm install
+```
+
+### Step 2: Start the Angular Development Server
+Run the Angular application locally:
+
+```bash
+npm start
+```
+
+This will start the frontend on [http://localhost:4200](http://localhost:4200).
+
+---
+
+## Full Project Workflow
+
+1. **Start the Backend**:
+   ```bash
+   cd backend
+   docker-compose up -d
+   ```
+
+2. **Start the Frontend**:
+   ```bash
+   cd news
+   npm start
+   ```
+
+3. Access the application:
+   - **Frontend**: [http://localhost:4200](http://localhost:4200)
+   - **Backend API**: [http://localhost:8082](http://localhost:8082)
+
+---
+
+## Troubleshooting
+
+### Check Docker Logs
+If you encounter issues with the backend, check the Docker logs:
 
 ```bash
 docker-compose logs -f
 ```
 
-Debes ver los registros de la API de backend y la base de datos de MySQL.
-
-## Paso 6: Probar la API
----------------------
-
-Prueba la API enviando una solicitud a `http://localhost:3000`. Puedes utilizar una herramienta como `curl` o un cliente REST como Postman.
-
-```bash
-curl http://localhost:3000
-```
-Debes ver una respuesta.
-
-## Solucionar Problemas
---------------------
-
-Si tienes problemas durante el proceso de configuraci n, revisa los registros para ver los errores:
-
-```bash
-docker-compose logs -f
-```
-
-Tambi n puedes intentar detener y reiniciar los contenedores:
+### Restart Containers
+If needed, restart the backend containers:
 
 ```bash
 docker-compose down
 docker-compose up -d
 ```
 
-## Variables de Entorno
------------------------
+### Common Errors
+- **Port Conflicts**: Ensure ports `8082` (backend) and `4200` (frontend) are not in use by other applications.
+- **Database Connection Issues**: Verify the database container is running and accessible.
 
-La API de backend utiliza variables de entorno para configurar la conexi n de base de datos y otras configuraciones. Puedes establecer estas variables en el archivo `docker-compose.yml` o en un archivo `.env`.
+---
 
-## Documentaci n de la API
--------------------
+## Environment Variables
 
-La documentaci n de la API est  disponible en el archivo `backend/api-documentation.md`.
+The backend uses environment variables for configuration. These are defined in the `.env` file in the `backend` directory:
 
-Eso es todo! Ahora deber as tener el backend en funcionamiento.
+```properties
+# Database Configuration
+DB_HOST=db
+DB_USER=usuario_db
+DB_PASS=contraseña_segura
+DB_NAME=inventory_sales_db
+DB_ROOT_PASSWORD=contraseña_root
 
+# Server Configuration
+PORT=8082
+NODE_ENV=development
 
-
-# IziVentas Mobile
-
-## Descripción
-Aplicación móvil de gestión de inventario y ventas.
-
-## Requisitos Previos
-- Flutter SDK
-- Dart SDK
-- Android Studio o VS Code
-
-## Instalación
-
-1. ingresar en el directorio del front
-```bash
-cd iziventas-mobile
+# Authentication
+JWT_SECRET=izi_ventas_secret
+JWT_EXPIRATION=1h
 ```
 
-2. Instalar dependencias
-```bash
-flutter pub get
-```
+---
 
-3. Ejecutar la aplicación
-```bash
-flutter run
-```
+## Project Structure
 
-## Estructura del Proyecto
-- lib/core/: Componentes centrales
-- lib/modules/: Módulos de funcionalidad
-- lib/shared/: Componentes compartidos
-- 	est/: Pruebas unitarias
+### Backend
+- **Language**: Node.js
+- **Framework**: Express.js
+- **Database**: MySQL
+- **Containerization**: Docker
 
-## Desarrollo
+### Frontend
+- **Language**: TypeScript
+- **Framework**: Angular
+- **Styling**: Angular Material
 
-### Generar código
-```bash
-flutter pub run build_runner build
-```
+---
 
-### Ejecutar pruebas
-```bash
-flutter test
-```
+## License
+
+This project is licensed under the MIT License.
 
 
 

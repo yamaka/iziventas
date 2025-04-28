@@ -1,0 +1,139 @@
+.news-detail-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .main-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .site-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-left: 10px;
+  }
+  
+  .toolbar-spacer {
+    flex: 1 1 auto;
+  }
+  
+  .content-container {
+    flex: 1;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  
+  .spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    flex: 1;
+  }
+  
+  .post-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .post-card {
+    width: 100%;
+    
+    .post-title {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+  }
+  
+  .post-image {
+    max-height: 400px;
+    object-fit: cover;
+    width: 100%;
+  }
+  
+  .post-content {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    white-space: pre-line;
+  }
+  
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  .category-chip {
+    background-color: #3f51b5;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 16px;
+    font-size: 0.8rem;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: A20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #3f51b5;
+  }
+  
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .related-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    
+    .related-title {
+      font-size: 1.2rem;
+    }
+    
+    mat-card-content {
+      flex: 1;
+    }
+  }
+  
+  .related-image {
+    max-height: 150px;
+    object-fit: cover;
+  }
+  
+  .main-footer {
+    background-color: #3f51b5;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    margin-top: 40px;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .related-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .post-card .post-title {
+      font-size: 1.5rem;
+    }
+    
+    .post-content {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+  }

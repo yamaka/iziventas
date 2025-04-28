@@ -1,0 +1,50 @@
+.news-list-container {
+    padding: 16px;
+  }
+  
+  .news-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 500;
+    }
+  }
+  
+  .filter-field {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .table-container {
+    overflow-x: auto;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+  .mat-column-actions {
+    width: 140px;
+    text-align: center;
+  }
+  
+  .spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+  }
+  
+  .error-snackbar {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  tr.mat-row:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }

@@ -1,0 +1,42 @@
+.news-form-container {
+    padding: 16px;
+  }
+  
+  .form-header {
+    margin-bottom: 20px;
+    
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 500;
+    }
+  }
+  
+  .full-width {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+  }
+  
+  .success-snackbar {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .error-snackbar {
+    background-color: #f44336;
+    color: white;
+  }
